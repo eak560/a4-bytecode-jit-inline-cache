@@ -25,5 +25,6 @@ python3 mega_tuning.py              # megamorphic cache: capacity 4/8/16 x FIFO/
 | `demo.py`, `v8_compare.js` | Live demo scripts |
 | `mega_tuning.py` | Measured sweep of megamorphic cache capacity and eviction policy |
 | `A4_Final_Presentation.pptx` | **Final deck** (23 slides, all results, no in-progress items) |
+| `A4_Final_Presentation_Script.docx` | **Final presentation script**: what to say per slide, Q&A, demo steps, rehearsal checklist |
 | `A4_Review2_*` | Review 2 report, slides and presentation script (`_Updated` = 23-slide Review 2 version) |
 | `CLAUDE.md` | Notes on the architecture for Claude Code |
