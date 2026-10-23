@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Compiler Design course project "A4": a pure-Python (stdlib only, no dependencies) reference model of a stack-based bytecode VM plus an inline-cache (IC) state machine for property access. All code is in the single file `vm_ic_model.py`. The `.docx`/`.pptx` files are the Review 2 report, slides and presentation script, and their numbers come from this script's output.
 
-This folder is its own git repository (private GitHub repo `eak560/a4-bytecode-jit-inline-cache`). The home directory `/Users/ehsan` is also a git repo; make sure git commands run here, not there.
+This folder is its own git repository (public GitHub repo `eak560/a4-bytecode-jit-inline-cache`). The home directory `/Users/ehsan` is also a git repo; make sure git commands run here, not there.
 
 ## Running
 

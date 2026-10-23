@@ -151,7 +151,7 @@ const cover = [
   ...table(["S.No", "Register No.", "Name", "Technical ownership"], MEMBERS, [700, 1600, 2700, 4026]),
   new Paragraph({ spacing: { before: 500, after: 100 }, children: [new TextRun({ text: "Team number: ____________        Review date: ____________", size: 22 })] }),
   new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: "Faculty / Evaluator: ________________________________", size: 22 })] }),
-  new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: "Repository: github.com/eak560/a4-bytecode-jit-inline-cache (private; access on request)", size: 22 })] }),
+  new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: "Repository: https://github.com/eak560/a4-bytecode-jit-inline-cache", size: 22 })] }),
 ];
 
 const declaration = [
@@ -272,7 +272,7 @@ const reqs = [
     ["Operating system", ENV.os, "Test and benchmark machine"],
     ["Hardware", ENV.cpu, "Apple Silicon laptop, " + ENV.mem],
     ["matplotlib", ENV.mpl, "Report figures only (not needed to run the project)"],
-    ["Git / GitHub", "private repository", "Version control and submission"],
+    ["Git / GitHub", "public repository", "Version control and submission"],
   ], [2000, 3300, 3726]),
   H2("5.4 Test programs"),
   P("Seven JavaScript programs in `examples/` (language features, monomorphic, polymorphic, megamorphic and wide-object workloads, a deoptimisation scenario and boundary cases) and seven invalid programs in `tests/invalid/`. The synthetic benchmarks generate objects with 200 filler fields using fixed seeds (42 for benchmarks, 7 for stress tests)."),
