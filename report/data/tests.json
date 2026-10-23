@@ -1,0 +1,240 @@
+[
+ {
+  "group": "unit",
+  "name": "TC1",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC2",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC3",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC4",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC5",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC6",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC7",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC8",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC9",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC10",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC11",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "TC12",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "IC1",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "IC2",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "IC3",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "IC4",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "unit",
+  "name": "IC5",
+  "expected": "PASS",
+  "actual": "PASS",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "basics.js",
+  "expected": "14 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "deopt.js",
+  "expected": "20 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "edge_cases.js",
+  "expected": "9 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "points_mega.js",
+  "expected": "1 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "points_mono.js",
+  "expected": "1 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "points_poly.js",
+  "expected": "1 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "end-to-end",
+  "name": "points_wide.js",
+  "expected": "1 lines = Node",
+  "actual": "all 3 modes match",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "division_by_zero.js",
+  "expected": "runtime error (division by zero)",
+  "actual": "runtime error: division by zero",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "infinite_loop.js",
+  "expected": "runtime error (step limit exceeded)",
+  "actual": "runtime error: step limit exceeded (possible infinite loop)",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "missing_property.js",
+  "expected": "runtime error (property 'y' not found)",
+  "actual": "runtime error: property 'y' not found on object",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "syntax_error.js",
+  "expected": "compile error (expected ')')",
+  "actual": "compile error: line 2: expected ')', got ';'",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "undefined_variable.js",
+  "expected": "compile error ('y' is not defined)",
+  "actual": "compile error: line 2: 'y' is not defined",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "unsupported_function.js",
+  "expected": "compile error ('function' is not supported)",
+  "actual": "compile error: line 2: 'function' is not supported by this compiler",
+  "passed": true
+ },
+ {
+  "group": "invalid",
+  "name": "unsupported_string.js",
+  "expected": "compile error (unexpected character)",
+  "actual": "compile error: line 2: unexpected character '\"'",
+  "passed": true
+ },
+ {
+  "group": "stress",
+  "name": "mono 50,000 reads",
+  "expected": "0 mismatches",
+  "actual": "0 mismatches",
+  "passed": true
+ },
+ {
+  "group": "stress",
+  "name": "poly 50,000 reads",
+  "expected": "0 mismatches",
+  "actual": "0 mismatches",
+  "passed": true
+ },
+ {
+  "group": "stress",
+  "name": "mega 50,000 reads",
+  "expected": "0 mismatches",
+  "actual": "0 mismatches",
+  "passed": true
+ }
+]

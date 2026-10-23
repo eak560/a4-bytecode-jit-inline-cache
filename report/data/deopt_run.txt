@@ -1,0 +1,16 @@
+========================================================================
+  examples/deopt.js
+========================================================================
+  compiled: 16 JS lines -> 25 bytecode instructions, 2 variables, 20 objects in 2 shape(s), 1 property-read sites
+  output: 10, 20, 30, 40, 50, 60 ...
+
+                                    matches Node?       
+  our VM: baseline                  yes                 —             (too short to time)
+  our VM: + inline cache            yes                 —             (too short to time)
+  our VM: + inline cache + tier 2   yes                 —             (too short to time)
+
+  property-read call sites (inline-cache state at end of run):
+    line 14  .x      POLY    2 shape(s) cached   | total += items[i].x;
+  cache hits: 18 / 20  (90.0%)
+  tier 2: 2 compile(s), 12 fast-path reads, 1 deopt(s)
+

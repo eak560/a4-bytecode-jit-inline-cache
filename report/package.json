@@ -1,0 +1,6 @@
+{
+  "name": "a4-report",
+  "private": true,
+  "description": "Builds A4_Final_Report.docx from measured data",
+  "dependencies": { "docx": "9.0.2" }
+}

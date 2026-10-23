@@ -1,0 +1,5 @@
+8bea6f8  2026-10-23  eak560  Regression suite, negative tests, benchmark and threshold sweep
+2eb2d20  2026-10-23  eak560  One-click demo script (run_demo.command)
+70c1417  2026-10-23  eak560  Final presentation script matching the final deck
+af8f1cd  2026-10-23  eak560  Final presentation and megamorphic cache tuning
+ea8aa49  2026-10-23  eak560  A4 bytecode VM with inline caching, JS front end and Review 2 materials

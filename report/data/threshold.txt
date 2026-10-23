@@ -1,0 +1,20 @@
+IC5 workload: 50 shape-A then 50 shape-B objects
+  threshold  compiles  fast-path reads  deopts  mismatches
+          1         2               96       1           0
+          2         2               95       1           0
+          5         2               92       1           0
+         10         2               87       1           0
+         25         2               72       1           0
+         50         0                0       0           0
+        100         0                0       0           0
+
+Monomorphic workload: 200 objects of one shape
+  threshold  compiles  fast-path reads  deopts  mismatches
+          1         1              198       0           0
+          2         1              197       0           0
+          5         1              194       0           0
+         10         1              189       0           0
+         25         1              174       0           0
+         50         1              149       0           0
+        100         1               99       0           0
+

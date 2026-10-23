@@ -1,0 +1,125 @@
+{
+  "reps": 5,
+  "A": [
+    {
+      "workload": "mono",
+      "hit_rate": 0.99999,
+      "hits": 99999,
+      "misses": 1,
+      "t_base": 3.6747048330144025,
+      "t_ic": 1.7401240420294926,
+      "speedup": 2.313300358159067,
+      "mismatches": 0
+    },
+    {
+      "workload": "poly",
+      "hit_rate": 0.99997,
+      "hits": 99997,
+      "misses": 3,
+      "t_base": 2.2904278750065714,
+      "t_ic": 1.6016697090235539,
+      "speedup": 1.5227316542272042,
+      "mismatches": 0
+    },
+    {
+      "workload": "mega",
+      "hit_rate": 0.24932,
+      "hits": 24932,
+      "misses": 75068,
+      "t_base": 1.2277203340199776,
+      "t_ic": 1.2730217920034193,
+      "speedup": 0.940995970044292,
+      "mismatches": 0
+    }
+  ],
+  "B": [
+    {
+      "capacity": 4,
+      "policy": "FIFO",
+      "hit_rate": 0.24932,
+      "speedup": 0.9174212849087209,
+      "mismatches": 0
+    },
+    {
+      "capacity": 4,
+      "policy": "LRU",
+      "hit_rate": 0.24952,
+      "speedup": 1.1186507957391207,
+      "mismatches": 0
+    },
+    {
+      "capacity": 8,
+      "policy": "FIFO",
+      "hit_rate": 0.49899,
+      "speedup": 0.8869555334251032,
+      "mismatches": 0
+    },
+    {
+      "capacity": 8,
+      "policy": "LRU",
+      "hit_rate": 0.49901,
+      "speedup": 1.4461420909565434,
+      "mismatches": 0
+    },
+    {
+      "capacity": 16,
+      "policy": "FIFO",
+      "hit_rate": 0.99984,
+      "speedup": 1.5541601580408748,
+      "mismatches": 0
+    },
+    {
+      "capacity": 16,
+      "policy": "LRU",
+      "hit_rate": 0.99984,
+      "speedup": 1.4877883846418827,
+      "mismatches": 0
+    }
+  ],
+  "C": [
+    {
+      "program": "points_mono.js",
+      "hit_rate": 0.9999583333333333,
+      "t_base": 0.8087874170159921,
+      "t_ic": 0.9174879999482073,
+      "t_t2": 0.6539746670168824,
+      "ic_speedup": 0.8815237006496528,
+      "t2_speedup": 1.2367259128022356,
+      "fast_path_reads": 95976
+    },
+    {
+      "program": "points_poly.js",
+      "hit_rate": 0.999875,
+      "t_base": 0.6750589170260355,
+      "t_ic": 0.8081582919694483,
+      "t_t2": 0.8218095420161262,
+      "ic_speedup": 0.8353053154734635,
+      "t2_speedup": 0.8214298843134982,
+      "fast_path_reads": 0
+    },
+    {
+      "program": "points_mega.js",
+      "hit_rate": 0.0,
+      "t_base": 0.9192224580328912,
+      "t_ic": 1.301612917042803,
+      "t_t2": 1.326488499995321,
+      "ic_speedup": 0.7062179900006808,
+      "t2_speedup": 0.6929743137887238,
+      "fast_path_reads": 0
+    },
+    {
+      "program": "points_wide.js",
+      "hit_rate": 0.9999583333333333,
+      "t_base": 0.9288481250405312,
+      "t_ic": 0.9417734160088003,
+      "t_t2": 0.6467905839672312,
+      "ic_speedup": 0.9862755831195087,
+      "t2_speedup": 1.4360878900605485,
+      "fast_path_reads": 95976
+    }
+  ],
+  "D": {
+    "poly_vs_mono": 1.08,
+    "mega_vs_mono": 5.72
+  }
+}

@@ -32,6 +32,8 @@ python3 benchmark.py                # median-of-5 timings used in the final repo
 | `benchmark.py`, `threshold_sweep.py` | Median-of-N benchmark and hot-threshold sweep |
 | `demo.py`, `v8_compare.js` | Live demo scripts |
 | `mega_tuning.py` | Measured sweep of megamorphic cache capacity and eviction policy |
+| `A4_Final_Report.docx` | **Final Review 3 report** (37 pages; open in Word and click Yes to update fields) |
+| `report/` | Report generator: `bash report/build.sh` re-measures everything and rebuilds the report |
 | `A4_Final_Presentation.pptx` | **Final deck** (23 slides, all results, no in-progress items) |
 | `A4_Final_Presentation_Script.docx` | **Final presentation script**: what to say per slide, Q&A, demo steps, rehearsal checklist |
 | `A4_Review2_*` | Review 2 report, slides and presentation script (`_Updated` = 23-slide Review 2 version) |

@@ -1,0 +1,62 @@
+[
+ {
+  "file": "vm_ic_model.py",
+  "lines": 622,
+  "purpose": "VM, profiler, hidden classes, inline cache, tier 2 + deopt, TC/IC tests, synthetic benchmark"
+ },
+ {
+  "file": "jsc.py",
+  "lines": 400,
+  "purpose": "JavaScript-subset compiler: lexer, recursive-descent parser, code generation, lowering"
+ },
+ {
+  "file": "run_js.py",
+  "lines": 150,
+  "purpose": "Runs a .js file in Node and on the VM in 3 modes; compares output; per-site cache report"
+ },
+ {
+  "file": "test_all.py",
+  "lines": 108,
+  "purpose": "Regression suite: unit, end-to-end vs Node, invalid input, stress"
+ },
+ {
+  "file": "benchmark.py",
+  "lines": 122,
+  "purpose": "Median-of-N benchmark for the report (sections A\u2013D)"
+ },
+ {
+  "file": "mega_tuning.py",
+  "lines": 36,
+  "purpose": "Megamorphic capacity \u00d7 eviction-policy sweep"
+ },
+ {
+  "file": "threshold_sweep.py",
+  "lines": 42,
+  "purpose": "Hot-loop threshold sweep"
+ },
+ {
+  "file": "demo.py",
+  "lines": 185,
+  "purpose": "Paced presentation walkthrough (7 beats)"
+ },
+ {
+  "file": "v8_compare.js",
+  "lines": 49,
+  "purpose": "Same mono/poly/mega experiment inside V8"
+ },
+ {
+  "file": "run_demo.command",
+  "lines": 29,
+  "purpose": "One-click live demo"
+ },
+ {
+  "file": "examples/*.js",
+  "lines": 190,
+  "purpose": "7 JavaScript test programs"
+ },
+ {
+  "file": "tests/invalid/*.js",
+  "lines": 18,
+  "purpose": "7 invalid / failure programs"
+ }
+]

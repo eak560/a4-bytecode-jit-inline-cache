@@ -2,6 +2,7 @@
 test_all.py -- the complete A4 regression suite in one command
 ================================================================
   python3 test_all.py
+  python3 test_all.py --json results.json     also save every check as JSON
 
 Runs, in order:
   1. Unit tests      TC1-TC12 (VM) and IC1-IC5 (inline cache, invalidation, deopt)
@@ -17,6 +18,8 @@ import io
 import os
 import shutil
 import subprocess
+import sys
+import json
 
 import vm_ic_model as m
 from jsc import CompileError, compile_js
@@ -99,4 +102,7 @@ for g, n, e, a, p in rows:
 passed = sum(1 for r in rows if r[4])
 print("-" * 125)
 print(f"{passed} / {len(rows)} checks passed" + ("" if have_node else "  (Node not found: end-to-end compared modes with each other)"))
+if "--json" in sys.argv:
+    with open(sys.argv[sys.argv.index("--json") + 1], "w") as f:
+        json.dump([dict(zip(("group", "name", "expected", "actual", "passed"), r)) for r in rows], f, indent=1)
 raise SystemExit(0 if passed == len(rows) else 1)

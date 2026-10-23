@@ -1,0 +1,11 @@
+$ python3 run_js.py tests/invalid/syntax_error.js
+========================================================================
+  tests/invalid/syntax_error.js
+========================================================================
+  COMPILE ERROR: line 2: expected ')', got ';'
+
+$ python3 run_js.py tests/invalid/division_by_zero.js
+  output: Infinity
+  our VM: baseline                  NO -- line 1: expected Infinity, got RUNTIME ERROR: division by zero
+  our VM: + inline cache            NO -- line 1: expected Infinity, got RUNTIME ERROR: division by zero
+  our VM: + inline cache + tier 2   NO -- line 1: expected Infinity, got RUNTIME ERROR: division by zero
