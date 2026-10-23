@@ -4,6 +4,7 @@ run_js.py -- run a JavaScript file through BOTH Node (V8) and our engine
   python3 run_js.py examples/points_mono.js
   python3 run_js.py examples/*.js              several files + summary table
   python3 run_js.py FILE --bytecode            also print the compiled bytecode
+  python3 run_js.py FILE --max-steps 100000    lower the VM step limit (catches infinite loops fast)
 
 For each file:
   1. Node runs it            -> the reference output (what real JavaScript says)
@@ -27,9 +28,14 @@ MAX_STEPS = 200_000_000
 def node_output(path):
     if not shutil.which("node"):
         return None
-    r = subprocess.run(["node", path], capture_output=True, text=True)
+    try:
+        r = subprocess.run(["node", path], capture_output=True, text=True, timeout=10)
+    except subprocess.TimeoutExpired:
+        return ["NODE TIMEOUT: did not finish in 10 s"]
     if r.returncode != 0:
-        raise RuntimeError(f"node failed:\n{r.stderr}")
+        # e.g. a ReferenceError: keep Node's first error line as its "output"
+        err = next((l for l in r.stderr.splitlines() if "Error" in l), "error")
+        return [f"NODE ERROR: {err.strip()}"]
     return r.stdout.splitlines()
 
 
@@ -37,9 +43,14 @@ def run_mode(code, comp, ic, tier2):
     vm = m.VM(n_locals=max(1, len(comp.slots)), objects=comp.objects)
     caches, stats = {}, m.new_stats()
     t0 = time.perf_counter()
-    r = vm.run(code, ic_mode=ic, ic_caches=caches, stats=stats, max_steps=MAX_STEPS, tier2=tier2)
+    try:
+        r = vm.run(code, ic_mode=ic, ic_caches=caches, stats=stats, max_steps=MAX_STEPS, tier2=tier2)
+        out = [str(v) for v in r["output"]]
+    except (m.VMError, IndexError, AttributeError) as e:
+        # report the runtime failure as output so it shows up in the Node comparison
+        out = [f"RUNTIME ERROR: {e}"]
     dt = time.perf_counter() - t0
-    return [str(v) for v in r["output"]], dt, caches, stats
+    return out, dt, caches, stats
 
 
 def first_diff(a, b):
@@ -108,7 +119,13 @@ def run_file(path, show_bytecode):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    global MAX_STEPS
+    argv = sys.argv[1:]
+    if "--max-steps" in argv:
+        i = argv.index("--max-steps")
+        MAX_STEPS = int(argv[i + 1])
+        del argv[i:i + 2]
+    args = [a for a in argv if not a.startswith("--")]
     if not args:
         print(__doc__)
         sys.exit(1)

@@ -9,11 +9,14 @@ Pure Python 3 standard library; Node.js is only needed for the comparison agains
 For the live demo, double-click `run_demo.command` (opens in Terminal, press Enter between steps).
 
 ```bash
+python3 test_all.py                 # full regression suite: unit, end-to-end vs Node, invalid input, stress
 python3 vm_ic_model.py              # 17 tests (TC1–TC12, IC1–IC5) + mono/poly/mega benchmark
 python3 run_js.py examples/*.js     # compile JS -> our bytecode, run 3 ways, compare with Node
 python3 demo.py                     # paced presentation walkthrough (--fast, --beat N)
 node v8_compare.js                  # the same mono/poly/mega experiment inside V8
 python3 mega_tuning.py              # megamorphic cache: capacity 4/8/16 x FIFO/LRU sweep
+python3 threshold_sweep.py          # hot-loop threshold sweep
+python3 benchmark.py                # median-of-5 timings used in the final report (run on an idle machine)
 ```
 
 ## Files
@@ -23,7 +26,10 @@ python3 mega_tuning.py              # megamorphic cache: capacity 4/8/16 x FIFO/
 | `vm_ic_model.py` | VM, inline cache, tier 2 + deopt, tests and benchmarks |
 | `jsc.py` | Compiler from a JavaScript subset to the VM's bytecode |
 | `run_js.py` | Runs a `.js` file in Node and on our VM (baseline / + IC / + IC + tier 2) and compares output |
-| `examples/` | Test programs: language features, mono / poly / mega / wide objects, deopt |
+| `examples/` | Test programs: language features, mono / poly / mega / wide objects, deopt, edge cases |
+| `tests/invalid/` | Invalid and failure programs (syntax error, undefined variable, unsupported features, ÷0, infinite loop, missing property) |
+| `test_all.py` | Regression suite (34 checks) |
+| `benchmark.py`, `threshold_sweep.py` | Median-of-N benchmark and hot-threshold sweep |
 | `demo.py`, `v8_compare.js` | Live demo scripts |
 | `mega_tuning.py` | Measured sweep of megamorphic cache capacity and eviction policy |
 | `A4_Final_Presentation.pptx` | **Final deck** (23 slides, all results, no in-progress items) |

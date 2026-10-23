@@ -22,6 +22,11 @@ python3 -c "import vm_ic_model as m; m.run_ic_tests()"
 
 Tests are inline `check(name, cond, detail)` calls inside those functions; to add a test, add a `check(...)` there with the next TC/IC number. `run_output.txt` is a saved older run (predates the IC1–IC5 section) — regenerate it rather than trusting it. Benchmark timings are wall-clock and vary per run; the script's stated contract is that every printed number is measured, never hard-coded, so don't fabricate or hand-edit results in the report/slides.
 
+## Tests and benchmarks
+
+- `python3 test_all.py` is the regression suite (unit, end-to-end vs Node, `tests/invalid/` negative cases with expected diagnostics, stress); keep it passing. Add a negative case by dropping a file in `tests/invalid/` and an entry in its `EXPECTED` dict.
+- `python3 benchmark.py --json out.json` produces the median-of-5 numbers used in the final report; timings are only meaningful on an idle machine (a game or browser load distorts them badly). Hit rates and mismatch counts are deterministic.
+
 ## JavaScript front end and demos
 
 - `jsc.py` compiles a small JavaScript subset (let/if/while/for, integers, object and constant-array literals, `p.x`, `console.log`) to the VM bytecode. The ISA only has `LT`, so `>`, `<=`, `==`, `%` etc. are lowered using compiler-generated temp locals (`$tN` slots). Object/array literals are built at compile time into the VM's object table. The docstring lists what's unsupported.

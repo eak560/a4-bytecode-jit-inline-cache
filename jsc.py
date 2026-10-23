@@ -41,6 +41,8 @@ TOKEN_RE = re.compile(r"""
 """, re.S | re.X)
 
 DECL = ("let", "const", "var")
+UNSUPPORTED = ("function", "return", "break", "continue", "class", "new", "this",
+               "true", "false", "null", "undefined", "switch", "do", "try", "throw")
 CMP = ("<", ">", "<=", ">=", "==", "!=", "===", "!==")
 
 
@@ -132,6 +134,8 @@ class Compiler:
 
     def statement(self):
         kind, text, line = self.peek()
+        if kind == "id" and text in UNSUPPORTED:
+            raise CompileError(f"line {line}: '{text}' is not supported by this compiler")
         if self.accept("{"):
             while not self.accept("}"):
                 if self.peek()[0] == "eof":
@@ -341,6 +345,8 @@ class Compiler:
         kind, text, line = self.next()
         if kind == "num":
             self.emit("PUSH", int(text))
+        elif kind == "id" and text in UNSUPPORTED:
+            raise CompileError(f"line {line}: '{text}' is not supported by this compiler")
         elif kind == "id":
             self.emit("LOAD", self.slot(text, line))
         elif text == "(":

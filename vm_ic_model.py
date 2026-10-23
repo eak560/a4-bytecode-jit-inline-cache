@@ -313,14 +313,14 @@ def baseline_getprop(obj, name):
     for i, p in enumerate(obj.shape.props):
         if p == name:
             return obj.values[i]
-    raise AttributeError(name)
+    raise AttributeError(f"property '{name}' not found on object")
 
 
 def _slow_offset(obj, name):
     for i, p in enumerate(obj.shape.props):
         if p == name:
             return i
-    raise AttributeError(name)
+    raise AttributeError(f"property '{name}' not found on object")
 
 
 MEGA_CACHE_CAPACITY = 4  # bounded megamorphic table -> models a real,
