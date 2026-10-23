@@ -4,7 +4,7 @@ const path = require("path");
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, Table, TableRow, TableCell,
   WidthType, ShadingType, BorderStyle, ImageRun, PageBreak, Footer, Header, PageNumber,
-  TableOfContents, LevelFormat, TabStopType,
+  TableOfContents, LevelFormat, TabStopType, HeightRule, VerticalAlign,
 } = require("docx");
 
 const HERE = __dirname;
@@ -77,9 +77,9 @@ function tableCaption(text) {
 
 const border = { style: BorderStyle.SINGLE, size: 4, color: "D9CFCF" };
 const borders = { top: border, left: border, bottom: border, right: border };
-function cell(text, width, { header = false, fill, align, mono = false } = {}) {
+function cell(text, width, { header = false, fill, align, mono = false, valign } = {}) {
   return new TableCell({
-    borders, width: { size: width, type: WidthType.DXA },
+    borders, verticalAlign: valign, width: { size: width, type: WidthType.DXA },
     shading: header ? { fill: HEAD, type: ShadingType.CLEAR, color: "auto" } : fill ? { fill, type: ShadingType.CLEAR, color: "auto" } : undefined,
     margins: { top: 60, bottom: 60, left: 100, right: 100 },
     children: [new Paragraph({
@@ -96,7 +96,8 @@ function table(headers, rows, widths, opts = {}) {
     rows: [
       new TableRow({ tableHeader: true, children: headers.map((h, i) => cell(h, widths[i], { header: true })) }),
       ...rows.map((r, ri) => new TableRow({
-        children: r.map((v, i) => cell(v, widths[i], {
+        height: opts.rowHeight ? { value: opts.rowHeight, rule: HeightRule.ATLEAST } : undefined,
+        children: r.map((v, i) => cell(v, widths[i], { valign: opts.rowHeight ? VerticalAlign.CENTER : undefined,
           fill: opts.fill ? opts.fill(r, i, ri) : (ri % 2 ? "FAF8F8" : undefined),
           align: opts.align && opts.align[i], mono: opts.mono && opts.mono[i],
         })),
@@ -149,8 +150,8 @@ const cover = [
   new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 700 }, children: [new TextRun({ text: "A stack-based bytecode VM with hidden classes, a four-state inline cache, a guarded tier-2 fast path with deoptimisation, and a JavaScript-subset front end verified against V8", italics: true, size: 22, color: "5A4E4F" })] }),
   new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: "Project ID: A4", bold: true, size: 24 })] }),
   ...table(["S.No", "Register No.", "Name", "Technical ownership"], MEMBERS, [700, 1600, 2700, 4026]),
-  new Paragraph({ spacing: { before: 500, after: 100 }, children: [new TextRun({ text: "Team number: ____________        Review date: ____________", size: 22 })] }),
-  new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: "Faculty / Evaluator: ________________________________", size: 22 })] }),
+  new Paragraph({ spacing: { before: 500, after: 100 }, children: [new TextRun({ text: "Team number: A4        Review date: 23 October 2026", size: 22 })] }),
+  new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: "Faculty / Evaluator: Shalini L", size: 22 })] }),
   new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: "Repository: https://github.com/eak560/a4-bytecode-jit-inline-cache", size: 22 })] }),
 ];
 
@@ -158,7 +159,7 @@ const declaration = [
   new Paragraph({ heading: HeadingLevel.HEADING_1, pageBreakBefore: true, children: [new TextRun("Declaration")] }),
   P("We, the undersigned members of Team A4, declare that this report and the accompanying software are our original work, carried out for the course BCSE307 Compiler Design at Vellore Institute of Technology. All external sources — books, papers, documentation and software tools — are acknowledged in the References section. No code was copied from other student teams. Results reported here were produced by running the scripts in the project repository; every timing and count is measured output, not an estimate."),
   new Paragraph({ spacing: { before: 400 }, children: [] }),
-  ...table(["Name", "Register No.", "Signature", "Date"], MEMBERS.map((m) => [m[2], m[1], "", ""]), [3000, 1800, 2426, 1800]),
+  ...table(["Name", "Register No.", "Signature", "Date"], MEMBERS.map((m) => [m[2], m[1], "", ""]), [2700, 1600, 3126, 1600], { rowHeight: 1000 }),
 ];
 
 // Static contents page: page numbers come from data/toc_pages.json, written by
