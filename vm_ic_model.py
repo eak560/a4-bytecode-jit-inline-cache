@@ -326,6 +326,9 @@ def _slow_offset(obj, name):
 MEGA_CACHE_CAPACITY = 4  # bounded megamorphic table -> models a real,
                          # size-limited shared cache rather than an
                          # unbounded dict, so MEGA sites can still miss
+MEGA_POLICY = "FIFO"     # eviction when the MEGA table is full: "FIFO" evicts
+                         # the oldest entry, "LRU" the least recently used one
+                         # (see mega_tuning.py for the measured comparison)
 
 
 class ICEntry:
@@ -352,6 +355,8 @@ def ic_getprop(cache: ICEntry, obj: Obj, name: str, stats: dict):
         entry = cache.mega_table.get(shape.id)
         if entry is not None and entry[0] == shape.version:
             stats["hits"] += 1
+            if MEGA_POLICY == "LRU":
+                cache.mega_table.move_to_end(shape.id)
             return obj.values[entry[1]]
         stats["misses"] += 1
         offset = _slow_offset(obj, name)

@@ -11,6 +11,7 @@ python3 vm_ic_model.py              # 17 tests (TC1–TC12, IC1–IC5) + mono/po
 python3 run_js.py examples/*.js     # compile JS -> our bytecode, run 3 ways, compare with Node
 python3 demo.py                     # paced presentation walkthrough (--fast, --beat N)
 node v8_compare.js                  # the same mono/poly/mega experiment inside V8
+python3 mega_tuning.py              # megamorphic cache: capacity 4/8/16 x FIFO/LRU sweep
 ```
 
 ## Files
@@ -22,5 +23,7 @@ node v8_compare.js                  # the same mono/poly/mega experiment inside 
 | `run_js.py` | Runs a `.js` file in Node and on our VM (baseline / + IC / + IC + tier 2) and compares output |
 | `examples/` | Test programs: language features, mono / poly / mega / wide objects, deopt |
 | `demo.py`, `v8_compare.js` | Live demo scripts |
-| `A4_Review2_*` | Review 2 report, slides and presentation script (`_Updated` = 23-slide version with the JS front end) |
+| `mega_tuning.py` | Measured sweep of megamorphic cache capacity and eviction policy |
+| `A4_Final_Presentation.pptx` | **Final deck** (23 slides, all results, no in-progress items) |
+| `A4_Review2_*` | Review 2 report, slides and presentation script (`_Updated` = 23-slide Review 2 version) |
 | `CLAUDE.md` | Notes on the architecture for Claude Code |
