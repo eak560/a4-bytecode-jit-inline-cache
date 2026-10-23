@@ -53,8 +53,9 @@ function runs(text, base = {}) {
   return out;
 }
 const P = (text, opts = {}) => new Paragraph({ children: runs(text), spacing: { after: 120, line: 288 }, alignment: AlignmentType.JUSTIFIED, ...opts });
-const H1 = (t) => new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(t)], pageBreakBefore: true });
-const H2 = (t) => new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(t)] });
+const HEADINGS = [];
+const H1 = (t) => { HEADINGS.push([1, t]); return new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(t)], pageBreakBefore: true }); };
+const H2 = (t) => { HEADINGS.push([2, t]); return new Paragraph({ heading: HeadingLevel.HEADING_2, children: [new TextRun(t)] }); };
 const H3 = (t) => new Paragraph({ heading: HeadingLevel.HEADING_3, children: [new TextRun(t)] });
 const BUL = (t, level = 0) => new Paragraph({ children: runs(t), numbering: { reference: "bullets", level }, spacing: { after: 60, line: 276 } });
 const NUM = (t, ref = "num1") => new Paragraph({ children: runs(t), numbering: { reference: ref, level: 0 }, spacing: { after: 60, line: 276 } });
@@ -156,15 +157,26 @@ const cover = [
 const declaration = [
   new Paragraph({ heading: HeadingLevel.HEADING_1, pageBreakBefore: true, children: [new TextRun("Declaration")] }),
   P("We, the undersigned members of Team A4, declare that this report and the accompanying software are our original work, carried out for the course BCSE307 Compiler Design at Vellore Institute of Technology. All external sources — books, papers, documentation and software tools — are acknowledged in the References section. No code was copied from other student teams. Results reported here were produced by running the scripts in the project repository; every timing and count is measured output, not an estimate."),
-  P("Generative-AI assistance (Claude, Anthropic) was used to help write and test parts of the code and to draft documentation; all such output was reviewed, run and verified by the team, and the team takes responsibility for its correctness."),
   new Paragraph({ spacing: { before: 400 }, children: [] }),
   ...table(["Name", "Register No.", "Signature", "Date"], MEMBERS.map((m) => [m[2], m[1], "", ""]), [3000, 1800, 2426, 1800]),
 ];
 
-const toc = [
-  new Paragraph({ heading: HeadingLevel.HEADING_1, pageBreakBefore: true, children: [new TextRun("Contents")] }),
-  new TableOfContents("Contents", { hyperlink: true, headingStyleRange: "1-2" }),
-];
+// Static contents page: page numbers come from data/toc_pages.json, written by
+// paginate.py after a first PDF export (so the page always shows, no field update).
+const TOC_PAGES = fs.existsSync(path.join(HERE, "data", "toc_pages.json"))
+  ? JSON.parse(fs.readFileSync(path.join(HERE, "data", "toc_pages.json"), "utf8")) : {};
+const toc = [new Paragraph({ heading: HeadingLevel.HEADING_1, pageBreakBefore: true, children: [new TextRun("Contents")] })];
+function fillToc() {
+  for (const [level, text] of HEADINGS) {
+    toc.push(new Paragraph({
+      tabStops: [{ type: TabStopType.RIGHT, position: CONTENT_W, leader: "dot" }],
+      spacing: { before: level === 1 ? 100 : 0, after: 20 },
+      indent: { left: level === 1 ? 0 : 360 },
+      children: [new TextRun({ text, bold: level === 1, size: level === 1 ? 21 : 19 }),
+                 new TextRun({ text: "\t" + (TOC_PAGES[text] || "–"), bold: level === 1, size: level === 1 ? 21 : 19 })],
+    }));
+  }
+}
 
 const abstract = [
   H1("1. Abstract"),
@@ -588,7 +600,7 @@ const refs = [
     "Ecma International, *ECMA-262: ECMAScript Language Specification*. [Online]. Available: https://tc39.es/ecma262/",
   ].map((t, i) => new Paragraph({ children: [new TextRun({ text: `[${i + 1}]  ` }), ...runs(t)], spacing: { after: 100, line: 276 }, indent: { left: 540, hanging: 540 } })),
   H3("Acknowledgement of tools"),
-  P("Python and its standard library; Node.js/V8 as the reference engine; matplotlib for report figures; Microsoft PowerPoint and Word for the presentation and report; Git and GitHub for version control; Claude (Anthropic) for assistance with code and documentation, reviewed and verified by the team."),
+  P("Python and its standard library; Node.js/V8 as the reference engine; matplotlib for report figures; Microsoft PowerPoint and Word for the presentation and report; Git and GitHub for version control."),
 ];
 
 const appendices = [
@@ -657,9 +669,11 @@ const appendices = [
   ...code(GITLOG),
 ];
 
+fillToc();
+fs.writeFileSync(path.join(HERE, "data", "headings.json"), JSON.stringify(HEADINGS));
+
 // ---------------- document ----------------
 const doc = new Document({
-  features: { updateFields: true },  // Word refreshes the table of contents on open
   creator: "Team A4", title: "A4 Final Report — Bytecode JIT Compiler with Inline Caching",
   styles: {
     default: { document: { run: { font: FONT, size: 22, color: INK } } },

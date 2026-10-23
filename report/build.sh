@@ -3,6 +3,7 @@
 #   bash report/build.sh            full run (benchmark takes ~2 min on an idle machine)
 #   bash report/build.sh --quick    reuse report/data/bench.json, re-measure everything else
 # Close games/heavy apps first: timings are only meaningful on an idle machine.
+# Needs: Python 3, Node.js, matplotlib, Microsoft Word (PDF export + pagination).
 set -e
 cd "$(dirname "$0")"
 ROOT=..
@@ -51,6 +52,13 @@ env = {"python": platform.python_version(), "node": sh("node", "--version"), "v8
 json.dump(env, open("report/data/env.json", "w"), indent=1)
 PY
 python3 make_figures.py
-node build_report.js $ROOT/A4_Final_Report.docx 2>/dev/null
-python3 fix_docx.py $ROOT/A4_Final_Report.docx
-echo "Done. Open A4_Final_Report.docx in Word and click Yes when it asks to update fields (fills the table of contents)."
+# Pass 1 builds with placeholder page numbers; Word exports a PDF; paginate.py
+# reads each heading's page; pass 2 rebuilds the contents page with them.
+rm -f data/toc_pages.json
+for pass in 1 2; do
+  node build_report.js $ROOT/A4_Final_Report.docx 2>/dev/null
+  python3 fix_docx.py $ROOT/A4_Final_Report.docx
+  ./export_pdf.sh $ROOT/A4_Final_Report.docx $ROOT/A4_Final_Report.pdf
+  python3 paginate.py $ROOT/A4_Final_Report.pdf
+done
+echo "Done: A4_Final_Report.docx and A4_Final_Report.pdf (needs Microsoft Word for the PDF export)."

@@ -1,3 +1,4 @@
+217b27d  2026-10-23  eak560  Final Review 3 report and its generator
 8bea6f8  2026-10-23  eak560  Regression suite, negative tests, benchmark and threshold sweep
 2eb2d20  2026-10-23  eak560  One-click demo script (run_demo.command)
 70c1417  2026-10-23  eak560  Final presentation script matching the final deck
