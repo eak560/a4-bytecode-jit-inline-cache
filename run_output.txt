@@ -1,0 +1,55 @@
+========================================================================
+SECTION A -- Baseline interpreter correctness (TC1-TC12)
+========================================================================
+  [PASS] TC1 addition (10+20=30)  -- got [30]
+  [PASS] TC2 subtraction (20-5=15)  -- got [15]
+  [PASS] TC3 multiplication (10*5=50)  -- got [50]
+  [PASS] TC4 division (20/4=5)  -- got [5]
+  [PASS] TC5 sequencing ((10+20)*5=150)  -- got [150]
+  [PASS] TC6 divide-by-zero raises
+  [PASS] TC7 LOAD/STORE round trip  -- got [11, 22, 33, 44]
+  [PASS] TC8 unconditional jump skips PRINT  -- got [1]
+  [PASS] TC9 JZ taken and not-taken
+  [PASS] TC10 LT (less/greater/equal)
+  [PASS] TC11 hot-path flag raised at back-edge threshold  -- back_edge_counts={2: 10}
+  [PASS] TC12 stack depth stress (1000 push/pop, no over/underflow)
+
+  Result: 12 / 12 passing
+
+========================================================================
+SECTION B -- Inline cache: differential testing, hit rate, timing
+========================================================================
+
+Monomorphic (1 shape)  (n=100,000 GETFIELD accesses)
+  differential mismatches vs baseline : 0
+  cache hits / misses                 : 99,999 / 1
+  measured hit rate                   : 100.0%
+  baseline time                       : 0.6106 s
+  interpreter+IC time                 : 0.2734 s
+  measured speedup                    : 2.23x
+
+Polymorphic (3 shapes)  (n=100,000 GETFIELD accesses)
+  differential mismatches vs baseline : 0
+  cache hits / misses                 : 99,997 / 3
+  measured hit rate                   : 100.0%
+  baseline time                       : 0.4269 s
+  interpreter+IC time                 : 0.2783 s
+  measured speedup                    : 1.53x
+
+Megamorphic (16 shapes, capacity 4)  (n=100,000 GETFIELD accesses)
+  differential mismatches vs baseline : 0
+  cache hits / misses                 : 24,932 / 75,068
+  measured hit rate                   : 24.9%
+  baseline time                       : 0.3952 s
+  interpreter+IC time                 : 0.4424 s
+  measured speedup                    : 0.89x
+
+========================================================================
+SUMMARY TABLE (paste into the report)
+========================================================================
+Workload                                Hit rate   Baseline (s)    IC (s)   Speedup
+Monomorphic (1 shape)                     100.0%         0.6106    0.2734     2.23x
+Polymorphic (3 shapes)                    100.0%         0.4269    0.2783     1.53x
+Megamorphic (16 shapes, capacity 4)        24.9%         0.3952    0.4424     0.89x
+
+Total differential-testing mismatches across all workloads: 0
