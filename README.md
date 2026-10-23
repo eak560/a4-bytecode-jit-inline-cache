@@ -6,6 +6,8 @@ Pure Python 3 standard library; Node.js is only needed for the comparison agains
 
 ## Run
 
+For the live demo, double-click `run_demo.command` (opens in Terminal, press Enter between steps).
+
 ```bash
 python3 vm_ic_model.py              # 17 tests (TC1–TC12, IC1–IC5) + mono/poly/mega benchmark
 python3 run_js.py examples/*.js     # compile JS -> our bytecode, run 3 ways, compare with Node
